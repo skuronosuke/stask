@@ -8,7 +8,7 @@
           <div class="flex flex-row items-center">
             <div class="flex flex-row items-end gap-x-4">
               <v-card-title>{{card.title}}</v-card-title>
-              <v-card-subtitle>所要時間:{{card.time}}分</v-card-subtitle>
+              <v-card-subtitle>所要時間:{{card.time}}分　{{card.nowPage - card.startPage}}/{{card.lastPage - card.startPage}}</v-card-subtitle>
             </div>
             <v-spacer></v-spacer>
             <v-btn
@@ -38,6 +38,8 @@
                 :min="card.startPage"
                 :max="card.lastPage"
                 color="blue"
+                thumb-label
+                step="1"
               ></v-slider>
               p.{{card.lastPage}}
             </div>
@@ -48,12 +50,7 @@
   </v-container>
 </template>
 <script>
-import MoreInput from "./moreInput.vue"
-
 export default{
-  components: {
-    MoreInput
-  },
   methods: {
     getNowNumber(start,now,end){
       const ue = now - start
