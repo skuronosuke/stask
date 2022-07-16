@@ -54,7 +54,8 @@ export default {
         lastPage: 100,
         nowPage: 40,
         subject: "math",
-        showSubMenu: false
+        showSubMenu: false,
+        done: false
       },
       {
         title: "Apapa",
@@ -63,25 +64,8 @@ export default {
         lastPage: 100,
         nowPage: 40,
         subject: "math",
-        showSubMenu: false
-      },
-      {
-        title: "Apapa",
-        time: "400",
-        startPage: 10,
-        lastPage: 100,
-        nowPage: 40,
-        subject: "math",
-        showSubMenu: false
-      },
-      {
-        title: "Apapa",
-        time: "400",
-        startPage: 10,
-        lastPage: 100,
-        nowPage: 40,
-        subject: "math",
-        showSubMenu: false
+        showSubMenu: false,
+        done: true
       }
     ]
   }),

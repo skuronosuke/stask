@@ -4,29 +4,42 @@
       border flat class="border-2 border-l-8 max-w-2xl mx-auto"
       :class="`${card.subject}-border`">
       <v-card-item>
-        <div>
-          <div class="flex flex-row items-center">
-            <div class="flex flex-row items-end gap-x-4">
-              <v-card-title>{{card.title}}</v-card-title>
-              <v-card-subtitle>所要時間:{{card.time}}分　{{card.nowPage - card.startPage}}/{{card.lastPage - card.startPage}}</v-card-subtitle>
+        <div class="flex flex-row items-center">
+          <v-icon
+            large
+            class="mr-2"
+            v-if="card.done"
+          >mdi-check</v-icon>
+          <div
+            class="w-8"
+            v-if="!card.done"
+          ></div>
+          <div class="grow">
+            <div class="flex flex-row items-center">
+              <div class="flex flex-row items-end gap-x-4">
+                <v-card-title>
+                  <MoreInput v-model:title="card.title"/>
+                </v-card-title>
+                <v-card-subtitle>所要時間:分　{{card.nowPage - card.startPage}}/{{card.lastPage - card.startPage}}</v-card-subtitle>
+              </div>
+              <v-spacer></v-spacer>
+              <v-btn
+                icon
+                class="m-0"
+                @click.stop="card.showSubMenu = !card.showSubMenu"
+                @click="test(card.title)"
+              >
+                <v-icon v-if="card.showSubMenu">mdi-menu-up</v-icon> <!--詳細を表示しているとき-->
+                <v-icon v-if="!card.showSubMenu">mdi-menu-down</v-icon> <!--詳細を隠しているとき-->
+              </v-btn>
             </div>
-            <v-spacer></v-spacer>
-            <v-btn
-              icon
-              class="m-0"
-              @click.stop="card.showSubMenu = !card.showSubMenu"
-              @click="test(card.title)"
-            >
-              <v-icon v-if="card.showSubMenu">mdi-menu-up</v-icon> <!--詳細を表示しているとき-->
-              <v-icon v-if="!card.showSubMenu">mdi-menu-down</v-icon> <!--詳細を隠しているとき-->
-            </v-btn>
+            <v-progress-linear
+              class="mt-2"
+              background-color="blue lighten-3"
+              color="blue lighten-1"
+              :modelValue="getNowNumber(card.startPage, card.nowPage, card.lastPage)"
+            ></v-progress-linear>
           </div>
-          <v-progress-linear
-            class="mt-2"
-            background-color="blue lighten-3"
-            color="blue lighten-1"
-            :modelValue="getNowNumber(card.startPage, card.nowPage, card.lastPage)"
-          ></v-progress-linear>
         </div>
         <v-expand-transition>
           <div v-if="card.showSubMenu" class="mt-2">
@@ -50,7 +63,12 @@
   </v-container>
 </template>
 <script>
+import MoreInput from "./moreInput.vue"
+
 export default{
+  components: {
+    MoreInput
+  },
   methods: {
     getNowNumber(start,now,end){
       const ue = now - start
