@@ -9,14 +9,9 @@
       </v-list-item-title>
       <v-divider></v-divider>
       <v-text-field
-        name="name"
-        label="label" 
-        id="id"
-      ></v-text-field>
-      <v-text-field
-        name="name"
-        label="label" 
-        id="id"
+        placeholder="課題名を入力"
+        label="課題名"
+        outlined
       ></v-text-field>
     </v-list-item-content>
   </v-list-item>

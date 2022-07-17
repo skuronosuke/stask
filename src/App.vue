@@ -51,7 +51,7 @@
 }
 
 .math-border{
-  border-color: #60a5fa !important;
+  border-color: #60a5fa88 !important;
 }
 </style>
 
