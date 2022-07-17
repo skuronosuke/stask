@@ -18,9 +18,16 @@
             <div class="flex flex-row items-center">
               <div class="flex flex-row items-end gap-x-4">
                 <v-card-title>
-                  <MoreInput v-model:title="card.title"/>
+                  <input
+                    type="text"
+                    v-model="card.title"
+                    maxlength="10"
+                    style="max-width: 200px;"
+                    placeholder="タイトルを入力...">
                 </v-card-title>
-                <v-card-subtitle>所要時間:分　{{card.nowPage - card.startPage}}/{{card.lastPage - card.startPage}}</v-card-subtitle>
+                <v-card-subtitle>所要時間<input
+                  type="number" min="1" max="999" v-model="card.time"
+                >:分　{{card.nowPage - card.startPage}}/{{card.lastPage - card.startPage}}</v-card-subtitle>
               </div>
               <v-spacer></v-spacer>
               <v-btn
@@ -45,7 +52,7 @@
           <div v-if="card.showSubMenu" class="mt-2">
             <v-divider></v-divider>
             <div class="mt-2 flex flex-row items-center gap-x-2">
-              <p>p.{{card.startPage}}</p>
+              <span>p.<input type="number" v-model="card.startPage" min="1" :max="card.lastPage - 1"></span>
               <v-slider
                 v-model="card.nowPage"
                 :min="card.startPage"
@@ -54,7 +61,7 @@
                 thumb-label
                 step="1"
               ></v-slider>
-              p.{{card.lastPage}}
+              <span>p.<input type="number" v-model="card.lastPage" min="1" max="999"></span>
             </div>
           </div>
         </v-expand-transition>
@@ -63,11 +70,9 @@
   </v-container>
 </template>
 <script>
-import MoreInput from "./moreInput.vue"
-
 export default{
   components: {
-    MoreInput
+
   },
   methods: {
     getNowNumber(start,now,end){

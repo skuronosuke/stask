@@ -4,6 +4,25 @@
       <v-app-bar prominent flat border>
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title>Stask</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-dialog
+          v-model="newLocalStaskDialog"
+        >
+          <template v-slot:activator="attrs">
+            <v-btn
+              icon
+              v-bind="attrs"
+              @click="newLocalStaskDialog = true">
+              <v-icon>
+                mdi-plus
+              </v-icon>
+            </v-btn>
+          </template>
+
+          <v-card style="max-width:500px;" fluid>
+            <nLSDialog></nLSDialog>
+          </v-card>  
+        </v-dialog>
       </v-app-bar>
 
       <v-navigation-drawer v-model="drawer">
@@ -38,14 +57,17 @@
 
 <script>
 import TaskCard from "./components/taskCard.vue"
+import nLSDialog from "./components/newLocalStaskDialog.vue"
 
 export default {
   name: 'App',
   components: {
-    TaskCard
+    TaskCard,
+    nLSDialog
   },
   data: () => ({
     drawer: false,
+    newLocalStaskDialog: false,
     cards: [
       {
         title: "Apapa",
