@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-card
-      border flat class="border-2 border-l-8 max-w-2xl mx-auto"
+      border flat class="border-1 border-l-8 max-w-2xl mx-auto"
       :class="`${card.subject}-border`">
       <v-card-item>
         <div class="flex flex-row items-center">
@@ -35,6 +35,7 @@
                 class="m-0"
                 @click.stop="card.showSubMenu = !card.showSubMenu"
                 @click="test(card.title)"
+                flat
               >
                 <v-icon v-if="card.showSubMenu">mdi-menu-up</v-icon> <!--詳細を表示しているとき-->
                 <v-icon v-if="!card.showSubMenu">mdi-menu-down</v-icon> <!--詳細を隠しているとき-->
@@ -52,7 +53,7 @@
           <div v-if="card.showSubMenu" class="mt-2">
             <v-divider></v-divider>
             <div class="mt-2 flex flex-row items-center gap-x-2">
-              <span>p.<input type="number" v-model="card.startPage" min="1" :max="card.lastPage - 1"></span>
+              <span>p.<input type="number" v-model="card.startPage" min="0" :max="card.lastPage - 1"></span>
               <v-slider
                 v-model="card.nowPage"
                 :min="card.startPage"
@@ -61,7 +62,7 @@
                 thumb-label
                 step="1"
               ></v-slider>
-              <span>p.<input type="number" v-model="card.lastPage" min="1" max="999"></span>
+              <span>p.<input type="number" v-model="card.lastPage" :min="card.startPage + 1" max="999"></span>
             </div>
           </div>
         </v-expand-transition>
