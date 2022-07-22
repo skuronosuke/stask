@@ -17,8 +17,7 @@
             </v-icon>
           </v-btn>
         </template>
-
-        <v-card style="max-width:500px;" fluid>
+        <v-card style="width:400px;" fluid>
           <nLSDialog></nLSDialog>
         </v-card>  
       </v-dialog>
