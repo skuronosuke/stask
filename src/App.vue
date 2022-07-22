@@ -5,20 +5,21 @@
       <v-toolbar-title>Stask</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-dialog
-        v-model="newLocalStaskDialog"
+        v-model="dialog"
       >
         <template v-slot:activator="attrs">
           <v-btn
             icon
             v-bind="attrs"
-            @click="newLocalStaskDialog = true">
+            @click="dialog = true">
             <v-icon>
               mdi-plus
             </v-icon>
           </v-btn>
         </template>
         <v-card style="width:400px;" fluid>
-          <nLSDialog></nLSDialog>
+          <nSDialog
+            @newKadai="addKadai"></nSDialog>
         </v-card>  
       </v-dialog>
     </v-app-bar>
@@ -29,7 +30,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-main>
+    <v-main class="overflow-y-scroll">
       <TaskCard
         v-for="card in cards"
         :key="card.id"
@@ -54,22 +55,22 @@
 
 <script>
 import TaskCard from "./components/taskCard.vue"
-import nLSDialog from "./components/newLocalStaskDialog.vue"
+import nSDialog from "./components/newStaskDialog.vue"
 import { useTheme } from "vuetify"
 
 export default {
   name: 'App',
   components: {
     TaskCard,
-    nLSDialog
+    nSDialog
   },
   data: () => ({
     drawer: false,
-    newLocalStaskDialog: false,
+    dialog: false,
     cards: [
       {
         title: "Apapa",
-        time: "400",
+        time: 400,
         startPage: 10,
         lastPage: 100,
         nowPage: 40,
@@ -79,7 +80,7 @@ export default {
       },
       {
         title: "Apapa",
-        time: "400",
+        time: 400,
         startPage: 10,
         lastPage: 100,
         nowPage: 40,
@@ -88,8 +89,14 @@ export default {
         done: true
       }
     ],
-    darkMode: false
+    darkMode: false,
   }),
+  methods: {
+    addKadai(data){
+      this.cards.push(data)
+      this.dialog = false
+    }
+  },
   setup(){
     const theme = useTheme()
     return {

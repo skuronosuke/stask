@@ -5,16 +5,13 @@
       :class="`${card.subject}-border`">
       <v-card-item>
         <div class="flex flex-row items-center">
-          <v-icon
-            large
-            class="mr-2"
-            v-if="card.done"
-          >mdi-check</v-icon>
-          <div
-            class="w-8"
-            v-if="!card.done"
-          ></div>
-          <div class="grow">
+          <v-btn icon @click="card.done = !card.done">
+            <v-icon
+              large
+              v-if="card.done"
+            >mdi-check</v-icon>
+          </v-btn>
+          <div class="ml-2 grow">
             <div class="flex flex-row items-center">
               <div class="flex flex-row items-end gap-x-4">
                 <v-card-title>
@@ -34,7 +31,6 @@
                 icon
                 class="m-0"
                 @click.stop="card.showSubMenu = !card.showSubMenu"
-                @click="test(card.title)"
                 flat
               >
                 <v-icon v-if="card.showSubMenu">mdi-menu-up</v-icon> <!--詳細を表示しているとき-->
@@ -81,9 +77,6 @@ export default{
       const sita = end - start
       return ue / sita * 100
     },
-    test(a){
-      console.log(a)
-    }
   },
   props: ["card"]
 }

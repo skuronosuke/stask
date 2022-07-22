@@ -11,10 +11,10 @@
       <v-col>
         <v-text-field
           label="課題名"
-          placeholder="課題名のみを入力してください"
+          placeholder="10文字以内"
           variant="underlined"
           prepend-icon="mdi-book-edit"
-          v-model="newKadaiData.name"
+          v-model="newKadaiData.title"
         ></v-text-field>
         <div class="mt-2 flex flex-row">
           <v-text-field
@@ -23,6 +23,7 @@
             variant="underlined"
             type="number"
             v-model="newKadaiData.startPage"
+            @input="this.setNowPage()"
           ></v-text-field>
           <v-text-field
             class="ml-4"
@@ -44,7 +45,7 @@
       </v-col>
     </v-container>
     <v-card-actions>
-      <v-btn color="primary" block @click="dialog = false">
+      <v-btn color="primary" block @click="$emit('newKadai', this.newKadaiData)">
         <v-icon>mdi-check</v-icon>
         完了
       </v-btn>
@@ -55,11 +56,21 @@
 export default{
   data(){return{
     newKadaiData: {
-      name: "",
+      title: "Apapa",
+      time: 400,
       startPage: 10,
-      lastPage: 20,
-      time: 60
+      lastPage: 100,
+      nowPage: 10,
+      subject: "math",
+      showSubMenu: false,
+      done: false
     }
-  }}
+  }},
+  emits: ["newKadai"],
+  methods: {
+    setNowPage(){
+      this.newKadaiData.nowPage = this.newKadaiData.startPage
+    }
+  }
 }
 </script>
