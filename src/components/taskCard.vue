@@ -1,8 +1,9 @@
 <template>
   <v-container fluid>
     <v-card
-      border flat class="border-1 border-l-8 max-w-2xl mx-auto"
-      :class="`${card.subject}-border`">
+      flat class="border-1 border-l-8 max-w-2xl mx-auto"
+      :style="`border-color: ${borderColors[card.subject]}6F`" border
+    >
       <v-card-item>
         <div class="flex flex-row items-center">
           <v-btn icon @click="card.done = !card.done">
@@ -39,8 +40,8 @@
             </div>
             <v-progress-linear
               class="mt-2"
-              background-color="blue lighten-3"
-              color="blue lighten-1"
+              :background-color="`${colors[card.subject]} lighten-3`"
+              :color="`${colors[card.subject]} lighten-1`"
               :modelValue="getNowNumber(card.startPage, card.nowPage, card.lastPage)"
             ></v-progress-linear>
           </div>
@@ -54,7 +55,8 @@
                 v-model="card.nowPage"
                 :min="card.startPage"
                 :max="card.lastPage"
-                color="blue"
+                :background-color="`${colors[card.subject]} lighten-3`"
+                :color="colors[card.subject]"
                 thumb-label
                 step="1"
               ></v-slider>
@@ -68,6 +70,20 @@
 </template>
 <script>
 export default{
+  data(){return{
+    colors: {
+      math: "light-blue",
+      japanese: "red",
+      science: "green",
+      social_studies: "amber"
+    },
+    borderColors: {
+      math: "#2196F3",
+      japanese: "#F44335",
+      science: "#4BAF51",
+      social_studies: "#FFC105"
+    }
+  }},
   components: {
 
   },
@@ -75,8 +91,9 @@ export default{
     getNowNumber(start,now,end){
       const ue = now - start
       const sita = end - start
+      //console.log(this.colors[this.card.subject]);
       return ue / sita * 100
-    },
+    }
   },
   props: ["card"]
 }

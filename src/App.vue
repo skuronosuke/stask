@@ -19,7 +19,8 @@
         </template>
         <v-card style="width:400px;" fluid>
           <nSDialog
-            @newKadai="addKadai"></nSDialog>
+            @newKadai="addKadai"
+          ></nSDialog>
         </v-card>  
       </v-dialog>
     </v-app-bar>
@@ -47,10 +48,6 @@
 .v-container{
   padding: 8px;
 }
-
-.math-border{
-  border-color: #60a5fa88 !important;
-}
 </style>
 
 <script>
@@ -74,7 +71,7 @@ export default {
         startPage: 10,
         lastPage: 100,
         nowPage: 40,
-        subject: "math",
+        subject: "science",
         showSubMenu: false,
         done: false
       },
@@ -84,7 +81,7 @@ export default {
         startPage: 10,
         lastPage: 100,
         nowPage: 40,
-        subject: "math",
+        subject: "social_studies",
         showSubMenu: false,
         done: true
       }
